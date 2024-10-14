@@ -8,6 +8,9 @@ services:
     restart: always
     ports:
       - "3000:3000"
+    volumes:
+      - ./frontend:/var/www/dailycrm/frontend
+      - /var/www/dailycrm/frontend/node_modules
     command: "npm run dev"
     networks:
       - nuxt-network

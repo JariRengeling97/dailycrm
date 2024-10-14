@@ -13,7 +13,7 @@ RUN npm run build
 EXPOSE 3000
 
 ENV NUXT_HOST=frontend
-
+ENV PATH=./node_modules/.bin/:$PATH
 ENV NUXT_PORT=3000
 
 CMD [ "npm", "run", "dev" ]
