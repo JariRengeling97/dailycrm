@@ -1,0 +1,31 @@
+version: "3"
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend/Dockerfile
+    container_name: frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    command: "npm run dev"
+    networks:
+      - nuxt-network
+  directus:
+    image: directus/directus:11.1.1
+    ports:
+      - "8055:8055"
+    volumes:
+      - ./backend/database:/directus/database
+      - ./backend/uploads:/directus/uploads
+      - ./backend/extensions:/directus/extensions
+    environment:
+      SECRET: "33gTLx2G0o"
+      ADMIN_EMAIL: "jari@kopdigitaal.nl"
+      ADMIN_PASSWORD: "Legner0800!"
+      DB_CLIENT: "sqlite3"
+      DB_FILENAME: "/directus/database/data.db"
+      WEBSOCKETS_ENABLED: "true"
+networks:
+  nuxt-network:
+    driver: bridge
